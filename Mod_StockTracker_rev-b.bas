@@ -12,19 +12,19 @@ Sub StockTracker()
     'determine last sheet
     LSheet = Sheets.Count
     
-    'set intial values for greatest values *bonus*
-    Inc_pChg = 0
-    Dec_pChg = 0
-    tVol = 0
-    
     'iterate through each sheet
     For iSheet = 1 To LSheet
         
         With Sheets(iSheet)
-        'set initial values
+        
+            'set initial values
             LRow = .Cells(1, 1).End(xlDown).Row
             Vol = 0
             jRow = 2
+            'set intial values for greatest values *bonus*
+            Inc_pChg = 0
+            Dec_pChg = 0
+            tVol = 0
             
             'header formatting
             .Cells(1, 9).Value = "Ticker"
@@ -94,15 +94,8 @@ Sub StockTracker()
                 End If
                 
             Next iRow
-        
-        .Range("A:P").Columns.AutoFit
-        
-        End With
-    
-    Next iSheet
-    
-    'print greatest values *bonus*
-    With Sheets(1)
+            
+        'print greatest values *bonus*
         .Cells(1, 15).Value = "Ticker"
         .Cells(1, 16).Value = "Value"
         .Cells(2, 14).Value = "Greatest % Increase"
@@ -115,7 +108,12 @@ Sub StockTracker()
         .Cells(4, 15).Value = TicVol
         .Cells(4, 16).Value = tVol
         .Range("A:P").Columns.AutoFit
-    End With
+        
+        .Range("A:P").Columns.AutoFit
+        
+        End With
+    
+    Next iSheet
 
     Application.StatusBar = False
     EndTime = Round(Timer - StartTime, 2)
